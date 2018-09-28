@@ -20,6 +20,16 @@ Or install it yourself as:
 
 ## Usage
 
+```ruby
+esignatur = Esignatur::Client.new(api_key: your_api_key)
+esignatur.create_order()
+esignatur.orders.where(modified_since: Date.new(2000, 1, 1))
+
+order = esignatur.orders.find(1)
+order.status
+order.download_pades
+```
+
 TODO: Write usage instructions here
 
 ## Development

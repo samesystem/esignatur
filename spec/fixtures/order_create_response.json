@@ -1,0 +1,18 @@
+{
+    "OrderId": "eeeeeeee-3333-4444-aaaa-777777777777",
+    "DocumentReference": "01780178017801780178",
+    "SignerReferences": [
+        {
+            "StepNumber": 0,
+            "Name": "John",
+            "Email": "john@example.com",
+            "SignUrl": "http://kreditmatch.stage.demoe1.com/esignature?id=r-ZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZm2"
+        },
+        {
+            "StepNumber": 1,
+            "Name": "Name2",
+            "Email": "ankur@moorem.com",
+            "SignUrl": "https://sign.esignatur.dk/?id==r-ZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZmQtZWVjZWYxZmQt"
+        }
+    ]
+}

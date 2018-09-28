@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["po.jurcys@gmail.com"]
 
   spec.summary       = %q{ruby API client for esignatur.dk}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/samesystem/esignatur"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -31,7 +31,16 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_dependency "faraday", ">= 0.10"
+  spec.add_dependency "activesupport", ">= 3.0"
+
+  spec.add_development_dependency "bundler", ">= 1.16"
+  spec.add_development_dependency "rake", ">= 10.0"
+  spec.add_development_dependency "rspec", ">= 3.0"
+  spec.add_development_dependency "rubocop", '>= 0.57'
+  spec.add_development_dependency "rubocop-rspec", '>= 1.27'
+  spec.add_development_dependency "webmock", '>= 3.4'
+  spec.add_development_dependency "codecov", '>= 0.1.10'
+  spec.add_development_dependency "simplecov", '>= 0.16.1'
+  spec.add_development_dependency "pry-byebug"
 end
