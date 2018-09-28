@@ -1,5 +1,10 @@
 # Esignatur
 
+
+[![Build Status](https://travis-ci.org/samesystem/esignatur.svg?branch=master)](https://travis-ci.org/samesystem/esignatur)
+[![codecov](https://codecov.io/gh/samesystem/esignatur/branch/master/graph/badge.svg)](https://codecov.io/gh/samesystem/esignatur)
+[![Documentation](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://samesystem.github.io/esignatur)
+
 https://api.esignatur.dk api ruby client
 
 ## Installation
