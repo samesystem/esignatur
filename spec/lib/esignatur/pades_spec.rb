@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Esignatur
   RSpec.describe Pades do
     subject(:pades) { described_class.new(order: order, api: api) }
 
-    let(:order) { Order.new(1, api: api) }
+    let(:order) { Order.new(attributes: { id: 1 }, api: api) }
     let(:api) { Api.new(api_key: 123) }
 
     describe '#document_data' do

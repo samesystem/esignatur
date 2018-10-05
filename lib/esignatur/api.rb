@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'esignatur/api/response'
+require 'esignatur/api/request_info'
 
 module Esignatur
   # all raw http requests are made using Api instance
@@ -31,11 +32,16 @@ module Esignatur
 
       headers = default_headers.merge(extra_headers)
       raw_response = Faraday.public_send(http_method, url, data&.to_json, headers)
-      Esignatur::Api::Response.new(raw_response)
+      request = RequestInfo.new(http_method, url, headers)
+      Esignatur::Api::Response.new(raw_response, request: request)
     end
 
     def default_headers
-      { 'X-eSignatur-Id' => api_key }
+      {
+        'X-eSignatur-Id' => api_key,
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      }
     end
   end
 end

@@ -4,14 +4,13 @@ require 'spec_helper'
 
 module Esignatur
   RSpec.describe Order do
-    subject(:order) { described_class.new(order_id, api: api, response_body: raw_data) }
+    subject(:order) { described_class.new(attributes: { id: order_id }, api: api) }
 
-    let(:api) { Api.new(api_key: 123)}
+    let(:api) { Api.new(api_key: 123) }
     let(:order_id) { 1 }
-    let(:raw_data) { nil }
 
-    describe '.create' do
-      subject(:create) { Order.create(attributes_for_create, api: api) }
+    describe '#create' do
+      subject(:create) { order.create(attributes_for_create) }
 
       let(:attributes_for_create) do
         {
@@ -30,7 +29,7 @@ module Esignatur
       end
 
       let!(:create_order_request) do
-        stub_request(:post, "https://api.esignatur.dk/Order/Create")
+        stub_request(:post, 'https://api.esignatur.dk/Order/Create')
           .to_return(body: File.read('spec/fixtures/order_create_response.json'))
       end
 
@@ -52,12 +51,17 @@ module Esignatur
       subject(:status) { order.status }
 
       let!(:status_request) do
-        stub_request(:get, "https://api.esignatur.dk/status/get/1")
+        stub_request(:get, 'https://api.esignatur.dk/status/get/1')
+          .and_return(body: File.read('spec/fixtures/pades_download_response.json'))
       end
 
       it 'makes status request to api' do
         status
         expect(status_request).to have_been_made.once
+      end
+
+      it 'returns instance of Status' do
+        expect(status).to be_a(Esignatur::Status)
       end
     end
 
@@ -65,7 +69,7 @@ module Esignatur
       subject(:cancel) { order.cancel }
 
       let!(:cancel_order_request) do
-        stub_request(:get, "https://api.esignatur.dk/Order/Cancel/1")
+        stub_request(:get, 'https://api.esignatur.dk/Order/Cancel/1')
           .and_return(
             body: File.read('spec/fixtures/pades_download_response.json'),
             status: response_status_for_cancel

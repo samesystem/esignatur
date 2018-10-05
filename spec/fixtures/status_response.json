@@ -1,0 +1,31 @@
+{
+  "DocumentStatus": "Active",
+  "EndDate": "/Date(946684800000)/",
+  "Reference": "ccc111",
+  "Email": "john@example.com",
+  "CustomData": null,
+  "CustomInvoiceNumber": null,
+  "DocumentsCount": 1,
+  "ConsentsCount": 0,
+  "AttachmentsCount": 0,
+  "Steps": [
+    {
+      "Signers": [
+        {
+          "Title": null,
+          "Name": "John Doe",
+          "Email": "john@example.com",
+          "Identification": "1212",
+          "Status": "Pending",
+          "SignDate": null,
+          "CustomData": null
+        }
+      ],
+      "EndDate": null,
+      "StartDate": null,
+      "ReminderDate": null,
+      "ReminderInterval": 0,
+      "Locked": false
+    }
+  ]
+}
