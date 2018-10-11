@@ -27,15 +27,17 @@ Or install it yourself as:
 
 ```ruby
 esignatur = Esignatur::Client.new(api_key: your_api_key)
-esignatur.create_order()
+
 esignatur.orders.where(modified_since: Date.new(2000, 1, 1))
 
 order = esignatur.orders.find(1)
-order.status
-order.download_pades
-```
+order.create(some_order_params) # creates order on esignatur side
+order.status # returns Status object
+order.cancel # => true/false
 
-TODO: Write usage instructions here
+pades = order.pades
+pades.document_data # decoded body of the document
+```
 
 ## Development
 

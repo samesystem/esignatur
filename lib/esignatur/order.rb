@@ -1,36 +1,46 @@
 # frozen_string_literal: true
 
+require 'esignatur/api_resource'
 require 'esignatur/pades'
+require 'esignatur/status'
 require 'active_support/core_ext/string/inflections'
 
 module Esignatur
   # esignatur order representation
   # More info: https://api.esignatur.dk/Documentation/Order
   class Order
-    attr_reader :id, :response_body
+    include ApiResource
 
-    def self.create(attributes, api:)
-      response = api.post('Order/Create', data: attributes)
-      body = response.json_body
-      new(body.fetch('OrderId'), response_body: response.body, api: api)
-    end
+    attr_reader :attributes
 
-    def initialize(id, response_body: nil, api:)
-      @id = id
-      @response_body = response_body
+    def initialize(attributes: {}, api:)
+      @attributes = attributes
       @api = api
     end
 
+    def create(attributes)
+      response = api_post('Order/Create', attributes)
+      if errors.empty?
+        body = response.json_body
+        @attributes = attributes.merge(id: body.fetch('OrderId')).merge(body)
+      end
+      self
+    end
+
+    def id
+      attributes[:id]
+    end
+
     def status
-      api.get("status/get/#{id}")
+      @status ||= Esignatur::Status.new(order: self, api: api).tap(&:fetch)
     end
 
     def cancel
-      api.get("Order/Cancel/#{id}").success?
+      api_get("Order/Cancel/#{id}").success?
     end
 
     def pades
-      Pades.new(order: self, api: api)
+      Esignatur::Pades.new(order: self, api: api)
     end
 
     private

@@ -92,7 +92,7 @@ module Esignatur
 
     describe '#create' do
       let!(:create_order_request) do
-        stub_request(:post, "https://api.esignatur.dk/Order/Create")
+        stub_request(:post, 'https://api.esignatur.dk/Order/Create')
           .and_return(body: File.read('spec/fixtures/order_create_response.json'))
       end
 

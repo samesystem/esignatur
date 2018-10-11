@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require 'esignatur/api_resource'
+
 module Esignatur
   # esignatur order info collection representation.
   # more info: https://api.esignatur.dk/Documentation/OrderInfo
   class Orders
+    include ::Esignatur::ApiResource
     include Enumerable
 
     def initialize(scope: {}, api:)
@@ -12,7 +15,11 @@ module Esignatur
     end
 
     def create(attributes)
-      Order.create(attributes, api: api)
+      build.create(attributes)
+    end
+
+    def build
+      Esignatur::Order.new(api: api)
     end
 
     def where(new_scope)
@@ -21,9 +28,10 @@ module Esignatur
 
     def all
       @all ||= begin
-        response = api.get("OrderInfo/OrdersForAdministrator/#{creator_id}", headers: headers_for_all_query)
+        response = api_get("OrderInfo/OrdersForAdministrator/#{creator_id}", headers: headers_for_all_query)
         response.json_body.fetch('SignOrders').map do |raw_order|
-          Order.new(raw_order.fetch('SignOrderId'), response_body: raw_order, api: api)
+          order_attributes = raw_order.merge(id: raw_order.fetch('SignOrderId'))
+          Esignatur::Order.new(attributes: order_attributes, api: api)
         end
       end
     end
@@ -33,7 +41,7 @@ module Esignatur
     end
 
     def find(id)
-      Order.new(id, api: api)
+      Esignatur::Order.new(attributes: { id: id }, api: api)
     end
 
     private
@@ -48,7 +56,7 @@ module Esignatur
     def creator_id
       scope.fetch(:creator_id) do
         raise(
-          Esignatur::Error,
+          Esignatur::MissingAttributeError,
           'You need to specify creator_id in order to fech orders. ' \
           'You can do this with `esignatur.orders.where(creator_id: 123)`'
         )
