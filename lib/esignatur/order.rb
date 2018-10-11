@@ -40,7 +40,7 @@ module Esignatur
     end
 
     def pades
-      Esignatur::Pades.new(order: self, api: api)
+      @pades ||= Esignatur::Pades.new(order: self, api: api)
     end
 
     private

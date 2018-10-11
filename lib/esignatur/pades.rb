@@ -21,12 +21,12 @@ module Esignatur
       Base64.decode64(attributes.fetch('DocumentData'))
     end
 
-    private
-
-    attr_reader :api
-
     def fetch
       @attributes = api_post('Pades/Download', 'Id' => order.id, 'DocumentIndex' => 0).json_body
     end
+
+    private
+
+    attr_reader :api
   end
 end
