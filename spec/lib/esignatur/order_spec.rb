@@ -98,6 +98,10 @@ module Esignatur
       subject(:pades) { order.pades }
 
       it { is_expected.to be_an(Pades) }
+
+      it 'returns same pades instance every time' do
+        expect(order.pades).to be order.pades
+      end
     end
   end
 end
