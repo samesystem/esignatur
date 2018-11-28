@@ -19,7 +19,7 @@ module Esignatur
 
       it 'makes esignatur status request' do
         fetch
-        expect(status_request).to have_been_made.once
+        expect(status_request).to have_been_made
       end
 
       it 'updates attributes' do
