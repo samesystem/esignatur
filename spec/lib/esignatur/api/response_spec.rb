@@ -29,7 +29,7 @@ module Esignatur
       describe '#method_missing' do
         it 'delegates unknown methods to original response' do
           api_response.status
-          expect(original_response).to have_received(:status).once
+          expect(original_response).to have_received(:status)
         end
       end
 
