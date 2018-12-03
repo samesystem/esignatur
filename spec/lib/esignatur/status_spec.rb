@@ -14,16 +14,31 @@ module Esignatur
 
       let!(:status_request) do
         stub_request(:get, 'https://api.esignatur.dk/status/get/1')
-          .and_return(body: File.read('spec/fixtures/pades_download_response.json'))
+          .and_return(
+            body: File.read('spec/fixtures/pades_download_response.json'),
+            status: response_status_code
+          )
       end
+
+      let(:response_status_code) { 200 }
 
       it 'makes esignatur status request' do
         fetch
-        expect(status_request).to have_been_made.once
+        expect(status_request).to have_been_made
       end
 
-      it 'updates attributes' do
-        expect { fetch }.to change(status, :attributes)
+      context 'when request is not successfull' do
+        let(:response_status_code) { 500 }
+
+        it 'does not update attributes' do
+          expect { fetch }.not_to change(status, :attributes)
+        end
+      end
+
+      context 'when request is successfull' do
+        it 'updates attributes' do
+          expect { fetch }.to change(status, :attributes)
+        end
       end
     end
   end
