@@ -27,7 +27,7 @@ module Esignatur
 
       it 'makes download pades request to api' do
         document_data
-        expect(download_pades_request).to have_been_made.once
+        expect(download_pades_request).to have_been_made
       end
 
       it 'encodes content' do

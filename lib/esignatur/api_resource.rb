@@ -13,8 +13,8 @@ module Esignatur
 
     protected
 
-    def api_post(relative_url, data)
-      make_api_request(:post, relative_url, data: data)
+    def api_post(relative_url, data, **options)
+      make_api_request(:post, relative_url, data: data, **options)
     end
 
     def api_get(relative_url, **options)

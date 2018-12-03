@@ -33,7 +33,7 @@ module Esignatur
 
       it 'makes orders info request' do
         all_orders
-        expect(orders_info_request).to have_been_made.once
+        expect(orders_info_request).to have_been_made
       end
 
       it 'returns orders array' do
@@ -68,7 +68,7 @@ module Esignatur
         it 'makes request with "modified since" header' do
           request_with_header = orders_info_request.with(headers: { 'If-Modified-Since' => '2010-01-01' })
           orders.all
-          expect(request_with_header).to have_been_made.once
+          expect(request_with_header).to have_been_made
         end
       end
 
@@ -79,7 +79,7 @@ module Esignatur
 
         it 'makes orders info request', :aggregate_failures do
           orders.all
-          expect(orders_info_request).to have_been_made.once
+          expect(orders_info_request).to have_been_made
         end
 
         it 'does not include "modified since" header' do
@@ -98,7 +98,7 @@ module Esignatur
 
       it 'makes create request' do
         orders.create({})
-        expect(create_order_request).to have_been_made.once
+        expect(create_order_request).to have_been_made
       end
     end
   end

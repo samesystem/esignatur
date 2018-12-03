@@ -35,7 +35,7 @@ order = esignatur.orders.find(esignatur_order_id)
 order = esignatur.orders.build
 order.create(some_order_params) # creates order on esignatur side
 order.status # returns Status object
-order.cancel # => true/false
+order.cancel(creator_id: '123') # => true/false
 
 pades = order.pades
 pades.document_data # decoded body of the document

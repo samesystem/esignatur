@@ -35,8 +35,14 @@ module Esignatur
       @status ||= Esignatur::Status.new(order: self, api: api).tap(&:fetch)
     end
 
-    def cancel
-      api_get("Order/Cancel/#{id}").success?
+    def cancel(attributes)
+      camelized_attributes = attributes.transform_keys(&:to_s).transform_keys(&:camelize)
+      creator_id = camelized_attributes.delete('CreatorId')
+
+      data = { 'OrderId' => id }.merge(camelized_attributes.compact)
+      headers = { 'X-eSignatur-CreatorId': creator_id }
+
+      api_post('Cancel/CancelOrder', data, headers: headers).success?
     end
 
     def pades
