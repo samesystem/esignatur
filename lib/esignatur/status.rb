@@ -17,7 +17,8 @@ module Esignatur
     end
 
     def fetch
-      @attributes = api_get("status/get/#{order.id}").json_body
+      response = api_get("status/get/#{order.id}")
+      @attributes = response.json_body if errors.empty?
       self
     end
   end
