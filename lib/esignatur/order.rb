@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'esignatur/api_resource'
-require 'esignatur/pade'
+require 'esignatur/pades'
 require 'esignatur/status'
 require 'active_support/core_ext/string/inflections'
 
@@ -45,9 +45,9 @@ module Esignatur
       api_post('Cancel/CancelOrder', data, headers: headers).success?
     end
 
-    def pades
-      @pades ||= status.attributes['Documents'].map do |document|
-        Esignatur::Pade.new(order: self, document: document, api: api)
+    def pades_list
+      @pades_list ||= status.attributes['Documents'].map do |document|
+        Esignatur::Pades.new(order: self, document: document, api: api)
       end
     end
 

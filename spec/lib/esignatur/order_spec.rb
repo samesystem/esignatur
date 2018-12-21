@@ -127,16 +127,16 @@ module Esignatur
       end
     end
 
-    describe '#pades' do
-      subject(:pades) { order.pades }
+    describe '#pades_list' do
+      subject(:pades_list) { order.pades_list }
 
       before do
         stub_request(:get, 'https://api.esignatur.dk/status/get/1')
           .and_return(body: File.read('spec/fixtures/status_response.json'))
       end
 
-      it 'returns same pades instance every time' do
-        expect(order.pades).to be order.pades
+      it 'returns same pades_list instance every time' do
+        expect(order.pades_list).to be order.pades_list
       end
     end
   end

@@ -5,7 +5,7 @@ require 'esignatur/api_resource'
 module Esignatur
   # esignature PAdES document representation.
   # More info: https://api.esignatur.dk/Documentation/Pades
-  class Pade
+  class Pades
     include ApiResource
 
     attr_reader :attributes, :order, :document
