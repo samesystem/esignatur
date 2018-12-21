@@ -10,19 +10,23 @@ module Esignatur
 
     attr_reader :attributes, :order
 
-    def initialize(order:, api:)
-      @attributes = {}
+    def initialize(order:, attributes: {}, api:)
+      @attributes = attributes
       @order = order
       @api = api
     end
 
     def document_data
-      fetch if attributes.empty?
+      fetch unless attributes.key?('DocumentData')
       Base64.decode64(attributes.fetch('DocumentData'))
     end
 
+    def document_id
+      attributes['DocumentId']
+    end
+
     def fetch
-      response = api_post('Pades/Download', 'Id' => order.id, 'DocumentIndex' => 0)
+      response = api_post('Pades/Download', 'Id' => order.id, 'AgreementId' => attributes['AgreementId'])
       @attributes = response.json_body if errors.empty?
       self
     end

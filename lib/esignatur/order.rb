@@ -46,8 +46,10 @@ module Esignatur
       api_post('Cancel/CancelOrder', data, headers: headers).success?
     end
 
-    def pades
-      @pades ||= Esignatur::Pades.new(order: self, api: api)
+    def pades_list
+      @pades_list ||= status.attributes['Documents'].map do |document|
+        Esignatur::Pades.new(order: self, attributes: document, api: api)
+      end
     end
 
     def source_document
