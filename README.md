@@ -38,7 +38,7 @@ order.status # returns Status object
 order.cancel(creator_id: '123') # => true/false
 
 pades = order.pades
-pades.document_data # decoded body of the document
+pades.first.document_data # decoded body of the document
 ```
 
 ## Development

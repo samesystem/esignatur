@@ -130,7 +130,10 @@ module Esignatur
     describe '#pades' do
       subject(:pades) { order.pades }
 
-      it { is_expected.to be_an(Pades) }
+      before do
+        stub_request(:get, 'https://api.esignatur.dk/status/get/1')
+          .and_return(body: File.read('spec/fixtures/status_response.json'))
+      end
 
       it 'returns same pades instance every time' do
         expect(order.pades).to be order.pades

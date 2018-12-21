@@ -5,14 +5,15 @@ require 'esignatur/api_resource'
 module Esignatur
   # esignature PAdES document representation.
   # More info: https://api.esignatur.dk/Documentation/Pades
-  class Pades
+  class Pade
     include ApiResource
 
-    attr_reader :attributes, :order
+    attr_reader :attributes, :order, :document
 
-    def initialize(order:, api:)
+    def initialize(order:, document:, api:)
       @attributes = {}
       @order = order
+      @document = document
       @api = api
     end
 
@@ -22,7 +23,7 @@ module Esignatur
     end
 
     def fetch
-      response = api_post('Pades/Download', 'Id' => order.id, 'DocumentIndex' => 0)
+      response = api_post('Pades/Download', 'Id' => order.id, 'AgreementId' => document[:AgreementId])
       @attributes = response.json_body if errors.empty?
       self
     end

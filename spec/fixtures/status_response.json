@@ -1,13 +1,47 @@
 {
   "DocumentStatus": "Active",
-  "EndDate": "/Date(946684800000)/",
-  "Reference": "ccc111",
+  "StatusTime": "/Date(1544695708017)/",
+  "EndDate": "/Date(1545213603000)/",
+  "Reference": "044e04fcYjPM67676",
   "Email": "john@example.com",
   "CustomData": null,
   "CustomInvoiceNumber": null,
-  "DocumentsCount": 1,
-  "ConsentsCount": 0,
-  "AttachmentsCount": 0,
+  "IsCPROrder": false,
+  "IsFilesOrder": false,
+  "Documents": [
+    {
+      "Title": "Contract_doc.pdf",
+      "AgreementId": "044e04fcJnNU67676",
+      "Filename": "Contract_doc.pdf",
+      "CustomData": null,
+      "IsAttachment": false,
+      "DocumentId": 1
+    },
+    {
+      "Title": "Contract.pdf",
+      "AgreementId": "1a904b1fRMPJ67676",
+      "Filename": "Contract.pdf",
+      "CustomData": null,
+      "IsAttachment": false,
+      "DocumentId": 2
+    }
+  ],
+  "DocumentsCount": 2,
+  "Attachments": [
+    {
+      "Title": "Contract_attach_2.pdf",
+      "AgreementId": "2be28eeaJrHX67676",
+      "Filename": "Contract_attach_2.pdf",
+      "CustomData": null,
+      "IsAttachment": true,
+      "DocumentId": 3
+    }
+  ],
+  "AttachmentsCount": 1,
+  "Files": [],
+  "FilesCount": 0,
+  "RejectSignerReference": null,
+  "RejectReason": null,
   "Steps": [
     {
       "Signers": [

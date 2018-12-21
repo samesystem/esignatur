@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'esignatur/api_resource'
-require 'esignatur/pades'
+require 'esignatur/pade'
 require 'esignatur/status'
 require 'active_support/core_ext/string/inflections'
 
@@ -46,7 +46,9 @@ module Esignatur
     end
 
     def pades
-      @pades ||= Esignatur::Pades.new(order: self, api: api)
+      @pades ||= status.attributes['Documents'].map do |document|
+        Esignatur::Pade.new(order: self, document: document, api: api)
+      end
     end
 
     private

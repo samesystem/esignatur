@@ -3,16 +3,17 @@
 require 'spec_helper'
 
 module Esignatur
-  RSpec.describe Pades do
-    subject(:pades) { described_class.new(order: order, api: api) }
+  RSpec.describe Pade do
+    subject(:pade) { described_class.new(order: order, document: { 'AgreementId': agreement_id }, api: api) }
 
     let(:order) { Order.new(attributes: { id: 1 }, api: api) }
+    let(:agreement_id) { '044e04fcJnNU67676' }
     let(:api) { Api.new(api_key: 123) }
 
     let!(:download_pades_request) do
       stub_request(:post, 'https://api.esignatur.dk/Pades/Download')
         .with(
-          body: { Id: 1, DocumentIndex: 0 }.to_json,
+          body: { Id: 1, AgreementId: agreement_id }.to_json,
           headers: { 'X-Esignatur-Id' => '123' }
         ).and_return(
           body: File.read('spec/fixtures/pades_download_response.json'),
@@ -23,7 +24,7 @@ module Esignatur
     let(:response_status_code) { 200 }
 
     describe '#document_data' do
-      subject(:document_data) { pades.document_data }
+      subject(:document_data) { pade.document_data }
 
       it 'makes download pades request to api' do
         document_data
@@ -36,19 +37,19 @@ module Esignatur
     end
 
     describe '#fetch' do
-      subject(:fetch) { pades.fetch }
+      subject(:fetch) { pade.fetch }
 
       context 'when request is not successfull' do
         let(:response_status_code) { 500 }
 
         it 'does not update attributes' do
-          expect { fetch }.not_to change(pades, :attributes)
+          expect { fetch }.not_to change(pade, :attributes)
         end
       end
 
       context 'when request is successfull' do
         it 'updates attributes' do
-          expect { fetch }.to change(pades, :attributes)
+          expect { fetch }.to change(pade, :attributes)
         end
       end
     end
