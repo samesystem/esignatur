@@ -2,6 +2,7 @@
 
 require 'esignatur/api_resource'
 require 'esignatur/pades'
+require 'esignatur/source_document'
 require 'esignatur/status'
 require 'active_support/core_ext/string/inflections'
 
@@ -47,6 +48,10 @@ module Esignatur
 
     def pades
       @pades ||= Esignatur::Pades.new(order: self, api: api)
+    end
+
+    def source_document
+      @source_document ||= Esignatur::SourceDocument.new(order: self, api: api)
     end
 
     private

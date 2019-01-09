@@ -136,5 +136,15 @@ module Esignatur
         expect(order.pades).to be order.pades
       end
     end
+
+    describe '#source_document' do
+      subject(:source_document) { order.source_document }
+
+      it { is_expected.to be_an(SourceDocument) }
+
+      it 'returns same source_document instance every time' do
+        expect(order.source_document).to be order.source_document
+      end
+    end
   end
 end
