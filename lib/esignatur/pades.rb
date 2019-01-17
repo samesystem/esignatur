@@ -21,7 +21,18 @@ module Esignatur
       Base64.decode64(attributes.fetch('DocumentData'))
     end
 
+    def title
+      fetch unless attributes.key?('Title')
+      attributes['Title']
+    end
+
+    def filename
+      fetch unless attributes.key?('Filename')
+      attributes['Filename']
+    end
+
     def document_id
+      fetch unless attributes.key?('DocumentId')
       attributes['DocumentId']
     end
 
