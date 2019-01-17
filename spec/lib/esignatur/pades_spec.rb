@@ -54,5 +54,29 @@ module Esignatur
         end
       end
     end
+
+    describe '#filename' do
+      subject(:filename) { pades.filename }
+
+      it 'returns filename' do
+        expect(filename).to eql 'Contract1.pdf'
+      end
+    end
+
+    describe '#document_id' do
+      subject(:document_id) { pades.document_id }
+
+      it 'returns document_id' do
+        expect(document_id).to be 1
+      end
+    end
+
+    describe '#title' do
+      subject(:title) { pades.title }
+
+      it 'returns title' do
+        expect(title).to eql 'Contract 1'
+      end
+    end
   end
 end
