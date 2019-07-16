@@ -4,14 +4,13 @@ require 'spec_helper'
 
 module Esignatur
   RSpec.describe User do
-    subject(:user) { described_class.new(user_id: user_id, creator_id: creator_id, api: api) }
+    subject(:user) { described_class.new(api_key: 123) }
 
-    let(:api) { Esignatur::Api.new(api_key: '123') }
     let(:user_id) { 'random' }
     let(:creator_id) { 'random' }
 
-    describe '#fetch' do
-      subject(:fetch) { user.fetch }
+    describe '#find' do
+      subject(:find) { user.find(user_id: user_id, creator_id: creator_id) }
 
       let!(:status_request) do
         stub_request(:get, 'https://api.esignatur.dk/user/get/random')
@@ -24,7 +23,7 @@ module Esignatur
       let(:response_status_code) { 200 }
 
       it 'makes esignatur status request' do
-        fetch
+        find
         expect(status_request).to have_been_made
       end
 
@@ -32,13 +31,13 @@ module Esignatur
         let(:response_status_code) { 500 }
 
         it 'does not update attributes' do
-          expect { fetch }.not_to change(user, :attributes)
+          expect { find }.not_to change(user, :attributes)
         end
       end
 
       context 'when request is successfull' do
         it 'updates attributes' do
-          expect { fetch }.to change(user, :attributes)
+          expect { find }.to change(user, :attributes)
         end
       end
     end

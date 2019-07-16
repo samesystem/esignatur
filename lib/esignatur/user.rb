@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'esignatur/api_resource'
 
 module Esignatur
@@ -8,20 +7,22 @@ module Esignatur
   class User
     include ApiResource
 
-    attr_reader :attributes, :user_id, :creator_id, :api
+    DEFAULT_BASE_URL = 'https://api.esignatur.dk'
 
-    def initialize(user_id: user_id, creator_id: creator_id,  attributes: {}, api:)
-      @attributes = attributes
-      @user_id = user_id
-      @api = api
-      @creator_id = creator_id
+    def initialize(api_key:, base_url: DEFAULT_BASE_URL)
+      @api = Esignatur::Api.new(api_key: api_key, base_url: base_url)
+      @attributes = {}
     end
 
-    def fetch
+    def find(user_id:, creator_id:)
       headers = { 'X-eSignatur-CreatorId': creator_id }
       response = api_get("user/get/#{user_id}", headers: headers)
       @attributes = response.json_body if errors.empty?
       self
     end
+
+    private
+
+    attr_reader :api, :attributes
   end
 end

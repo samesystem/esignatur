@@ -12,10 +12,6 @@ module Esignatur
       Orders.new(api: api)
     end
 
-    def user(user_id, creator_id)
-      User.new(user_id: user_id, creator_id: creator_id, api: api).fetch
-    end
-
     private
 
     attr_reader :api
