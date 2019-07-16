@@ -15,7 +15,7 @@ module Esignatur
       @attributes = {}
     end
 
-    def find(user_id:, creator_id:)
+    def find_by(user_id:, creator_id:)
       headers = { 'X-eSignatur-CreatorId': creator_id }
       response = api_get("user/get/#{user_id}", headers: headers)
       @attributes = response.json_body if errors.empty?

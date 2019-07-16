@@ -9,8 +9,8 @@ module Esignatur
     let(:user_id) { 'random' }
     let(:creator_id) { 'random' }
 
-    describe '#find' do
-      subject(:find) { user.find(user_id: user_id, creator_id: creator_id) }
+    describe '#find_by' do
+      subject(:find_by) { user.find_by(user_id: user_id, creator_id: creator_id) }
 
       let!(:status_request) do
         stub_request(:get, 'https://api.esignatur.dk/user/get/random')
@@ -23,7 +23,7 @@ module Esignatur
       let(:response_status_code) { 200 }
 
       it 'makes esignatur status request' do
-        find
+        find_by
         expect(status_request).to have_been_made
       end
 
@@ -31,13 +31,13 @@ module Esignatur
         let(:response_status_code) { 500 }
 
         it 'does not update attributes' do
-          expect { find }.not_to change(user, :attributes)
+          expect { find_by }.not_to change(user, :attributes)
         end
       end
 
       context 'when request is successfull' do
         it 'updates attributes' do
-          expect { find }.to change(user, :attributes)
+          expect { find_by }.to change(user, :attributes)
         end
       end
     end
