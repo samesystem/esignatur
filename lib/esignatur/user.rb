@@ -10,7 +10,7 @@ module Esignatur
 
     attr_reader :attributes, :user_id, :creator_id, :api
 
-    def initialize(user_id: user, creator_id: creator_id,  attributes: {}, api:)
+    def initialize(user_id: user_id, creator_id: creator_id,  attributes: {}, api:)
       @attributes = attributes
       @user_id = user_id
       @api = api
