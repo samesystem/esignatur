@@ -9,6 +9,8 @@ require 'esignatur/error'
 require 'esignatur/orders'
 require 'esignatur/order'
 
+require 'esignatur/user'
+
 # root module
 module Esignatur
 end

@@ -1,0 +1,20 @@
+[
+  {
+    "UserId": "1234",
+    "Name": "User Usersen",
+    "Emails": [
+      "user1@local"
+    ],
+    "IsCustomerAdmin": false,
+    "IsDeleted": false
+  },
+  {
+    "UserId": "4321",
+    "Name": "Usain User",
+    "Emails": [
+      "user2@local"
+    ],
+    "IsCustomerAdmin": true,
+    "IsDeleted": false
+  }
+]
