@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    esignatur (1.2.6)
+    esignatur (1.2.7)
       activesupport (>= 3.0)
       faraday (>= 0.10)
 
@@ -17,10 +17,8 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
     byebug (10.0.2)
-    codecov (0.1.10)
-      json
-      simplecov
-      url
+    codecov (0.5.2)
+      simplecov (>= 0.15, < 0.22)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
@@ -84,7 +82,6 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.4.0)
-    url (0.3.2)
     webmock (3.4.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -95,7 +92,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (>= 1.16)
-  codecov (>= 0.1.10)
+  codecov (>= 0.2.0)
   esignatur!
   pry-byebug
   rake (>= 10.0)
@@ -106,4 +103,4 @@ DEPENDENCIES
   webmock (>= 3.4)
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

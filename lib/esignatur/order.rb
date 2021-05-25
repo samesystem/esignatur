@@ -38,7 +38,7 @@ module Esignatur
 
     def cancel(attributes)
       camelized_attributes = attributes.transform_keys(&:to_s).transform_keys(&:camelize)
-      creator_id = camelized_attributes.delete('CreatorId')
+      creator_id = camelized_attributes.delete('CreatorId').to_s
 
       data = { 'OrderId' => id }.merge(camelized_attributes.compact)
       headers = { 'X-eSignatur-CreatorId': creator_id }
