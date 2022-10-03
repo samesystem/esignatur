@@ -37,7 +37,7 @@ module Esignatur
     end
 
     def fetch
-      response = api_post('Pades/Download', 'Id' => order.id, 'AgreementId' => attributes['AgreementId'])
+      response = api_post('Pades/Download', { 'Id' => order.id, 'AgreementId' => attributes['AgreementId'] })
       @attributes = response.json_body if errors.empty?
       self
     end
