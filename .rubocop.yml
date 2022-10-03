@@ -28,7 +28,7 @@ Naming/UncommunicativeMethodParamName:
     - 'as'
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.1
   Exclude:
     - bin/*
     - esignatur.gemspec
