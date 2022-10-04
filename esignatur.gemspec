@@ -33,6 +33,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday", ">= 0.10"
   spec.add_dependency "activesupport", ">= 3.0"
+  spec.add_dependency "rexml", ">= 3.2"
+  spec.add_dependency "json", '>= 2.6.2'
 
   spec.add_development_dependency "bundler", ">= 1.16"
   spec.add_development_dependency "rake", ">= 10.0"
