@@ -38,6 +38,11 @@ module Esignatur
         expect(create_order_request).to have_been_made
       end
 
+      it 'includes "X-eSignatur-CreatorId" header' do
+        create
+        expect(create.last_response.request.headers['X-eSignatur-CreatorId']).to eq('1')
+      end
+
       it 'returns Order instance' do
         expect(create).to be_an(Order)
       end

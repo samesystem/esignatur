@@ -20,7 +20,9 @@ module Esignatur
     end
 
     def create(attributes)
-      response = api_post('Order/Create', attributes)
+      camelized_attributes = attributes.transform_keys { _1.to_s.camelize }
+      headers = { 'X-eSignatur-CreatorId' => camelized_attributes['CreatorId'].to_s }
+      response = api_post('Order/Create', attributes, headers: headers)
       if errors.empty?
         body = response.json_body
         @attributes = attributes.merge(id: body.fetch('OrderId')).merge(body)
