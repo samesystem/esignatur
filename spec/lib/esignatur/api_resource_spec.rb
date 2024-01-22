@@ -7,7 +7,7 @@ RSpec.describe Esignatur::ApiResource do
     include Esignatur::ApiResource
 
     def api
-      @api ||= Esignatur::Api.new(api_key: 123)
+      @api ||= Esignatur::Api.new(api_key: 123, creator_id: 1)
     end
 
     def do_request

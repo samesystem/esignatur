@@ -9,7 +9,7 @@ module Esignatur
     let(:order) { Order.new(attributes: { id: 1 }, api: api) }
     let(:agreement_id) { '044e04fcJnNU67676' }
     let(:attributes) { { 'AgreementId' => agreement_id } }
-    let(:api) { Api.new(api_key: 123) }
+    let(:api) { Api.new(api_key: 123, creator_id: 1) }
 
     let!(:download_pades_request) do
       stub_request(:post, 'https://api.esignatur.dk/Pades/Download')

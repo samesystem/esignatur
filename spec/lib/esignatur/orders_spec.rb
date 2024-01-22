@@ -3,32 +3,25 @@
 require 'spec_helper'
 module Esignatur
   RSpec.describe Orders do
-    shared_context 'with stubbed orders info request' do
-      let!(:orders_info_request) do
-        stub_request(:get, "https://api.esignatur.dk/OrderInfo/OrdersForAdministrator/#{creator_id}")
-          .with(headers: { 'X-Esignatur-Id' => '123' })
-          .to_return(body: File.read('spec/fixtures/sign_orders_response.json'))
-      end
+    subject(:orders) { described_class.new(api: api) }
+
+    let(:request_headers) { { 'X-Esignatur-Id' => '123', 'X-Esignatur-CreatorId' => api.creator_id } }
+    let(:api) { Esignatur::Api.new(api_key: '123', creator_id: '1') }
+
+    let!(:orders_info_request) do
+      stub_request(:get, "https://api.esignatur.dk/OrderInfo/OrdersForAdministrator/#{api.creator_id}")
+        .with(headers: request_headers)
+        .to_return(body: File.read('spec/fixtures/sign_orders_response.json'))
     end
 
-    subject(:orders) { initial_orders }
-
-    let(:initial_orders) { described_class.new(api: api).where(creator_id: creator_id) }
-    let(:api) { Esignatur::Api.new(api_key: '123') }
-    let(:creator_id) { 1 }
-
     describe '#each' do
-      include_context 'with stubbed orders info request'
-
       it 'iterates through all orders' do
-        creator_orders = orders.where(creator_id: creator_id)
+        creator_orders = orders
         expect(creator_orders.each.map(&:itself)).to eq creator_orders.all
       end
     end
 
     describe '#all' do
-      include_context 'with stubbed orders info request'
-
       subject(:all_orders) { orders.all }
 
       it 'makes orders info request' do
@@ -52,18 +45,8 @@ module Esignatur
     end
 
     describe '#where' do
-      context 'when creator id is not given' do
-        subject(:orders) { described_class.new(api: api).where({}) }
-
-        it 'raises error durring fetch' do
-          expect { orders.all }.to raise_error(Esignatur::Error)
-        end
-      end
-
       context 'when modified_since is given' do
-        subject(:orders) { initial_orders.where(modified_since: Date.new(2010, 1, 1)) }
-
-        include_context 'with stubbed orders info request'
+        let(:orders) { super().where(modified_since: Date.new(2010, 1, 1)) }
 
         it 'makes request with "modified since" header' do
           request_with_header = orders_info_request.with(headers: { 'If-Modified-Since' => '2010-01-01' })
@@ -73,10 +56,6 @@ module Esignatur
       end
 
       context 'when modified_since is not given' do
-        subject(:orders) { initial_orders }
-
-        include_context 'with stubbed orders info request'
-
         it 'makes orders info request', :aggregate_failures do
           orders.all
           expect(orders_info_request).to have_been_made
@@ -97,7 +76,7 @@ module Esignatur
       end
 
       it 'makes create request' do
-        orders.create({})
+        orders.create
         expect(create_order_request).to have_been_made
       end
     end

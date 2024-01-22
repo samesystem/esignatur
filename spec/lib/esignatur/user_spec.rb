@@ -4,13 +4,12 @@ require 'spec_helper'
 
 module Esignatur
   RSpec.describe User do
-    subject(:user) { described_class.new(api_key: 123) }
+    subject(:user) { described_class.new(api_key: 123, creator_id: 'random') }
 
     let(:user_id) { 'random' }
-    let(:creator_id) { 'random' }
 
     describe '#find_by' do
-      subject(:find_by) { user.find_by(user_id: user_id, creator_id: creator_id) }
+      subject(:find_by) { user.find_by(user_id: user_id) }
 
       let!(:status_request) do
         stub_request(:get, 'https://api.esignatur.dk/user/get/random')

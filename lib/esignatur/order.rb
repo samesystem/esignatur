@@ -19,14 +19,14 @@ module Esignatur
       @api = api
     end
 
-    def create(attributes)
-      camelized_attributes = attributes.transform_keys { _1.to_s.camelize }
-      headers = { 'X-eSignatur-CreatorId' => camelized_attributes['CreatorId'].to_s }
-      response = api_post('Order/Create', attributes, headers: headers)
+    def create(attributes = {}, **keyword_attributes)
+      response = api_post('Order/Create', attributes.merge(keyword_attributes))
+
       if errors.empty?
         body = response.json_body
         @attributes = attributes.merge(id: body.fetch('OrderId')).merge(body)
       end
+
       self
     end
 
@@ -38,14 +38,11 @@ module Esignatur
       @status ||= Esignatur::Status.new(order: self, api: api).tap(&:fetch)
     end
 
-    def cancel(attributes)
-      camelized_attributes = attributes.transform_keys(&:to_s).transform_keys(&:camelize)
-      creator_id = camelized_attributes.delete('CreatorId').to_s
-
+    def cancel(attributes = {}, **keyword_attributes)
+      camelized_attributes = attributes.merge(keyword_attributes).transform_keys(&:to_s).transform_keys(&:camelize)
       data = { 'OrderId' => id }.merge(camelized_attributes.compact)
-      headers = { 'X-eSignatur-CreatorId': creator_id }
 
-      api_post('Cancel/CancelOrder', data, headers: headers).success?
+      api_post('Cancel/CancelOrder', data).success?
     end
 
     def pades_list

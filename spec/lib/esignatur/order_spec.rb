@@ -6,15 +6,14 @@ module Esignatur
   RSpec.describe Order do
     subject(:order) { described_class.new(attributes: { id: order_id }, api: api) }
 
-    let(:api) { Api.new(api_key: 123) }
+    let(:api) { Api.new(api_key: 123, creator_id: 1) }
     let(:order_id) { 1 }
 
     describe '#create' do
-      subject(:create) { order.create(attributes_for_create) }
+      subject(:create) { order.create(**attributes_for_create) }
 
       let(:attributes_for_create) do
         {
-          CreatorId: 1,
           CommonNote: 'Test order.',
           ReminderDate: '2000-01-01',
           ReminderInterval: 2,
