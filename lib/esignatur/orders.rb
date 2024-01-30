@@ -14,8 +14,8 @@ module Esignatur
       @api = api
     end
 
-    def create(attributes)
-      build.create(attributes)
+    def create(attributes = {}, **keyword_attributes)
+      build.create(attributes, **keyword_attributes)
     end
 
     def build
@@ -28,7 +28,7 @@ module Esignatur
 
     def all
       @all ||= begin
-        response = api_get("OrderInfo/OrdersForAdministrator/#{creator_id}", headers: headers_for_all_query)
+        response = api_get("OrderInfo/OrdersForAdministrator/#{api.creator_id}", headers: headers_for_all_query)
         response.json_body.fetch('SignOrders').map do |raw_order|
           order_attributes = raw_order.merge(id: raw_order.fetch('SignOrderId'))
           Esignatur::Order.new(attributes: order_attributes, api: api)
@@ -51,16 +51,6 @@ module Esignatur
     def headers_for_all_query
       modified_since = scope[:modified_since]&.iso8601
       modified_since ? { 'If-Modified-Since' => modified_since } : {}
-    end
-
-    def creator_id
-      scope.fetch(:creator_id) do
-        raise(
-          Esignatur::MissingAttributeError,
-          'You need to specify creator_id in order to fech orders. ' \
-          'You can do this with `esignatur.orders.where(creator_id: 123)`'
-        )
-      end
     end
   end
 end

@@ -15,6 +15,8 @@ if ENV['CODECOV_TOKEN']
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
+require 'pry-byebug'
+
 WebMock.disable_net_connect!(allow: ['codeclimate.com'])
 
 RSpec.configure do |config|

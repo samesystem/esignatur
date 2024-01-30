@@ -10,14 +10,18 @@ module Esignatur
 
     DEFAULT_BASE_URL = 'https://api.esignatur.dk'
 
-    def initialize(api_key:, base_url: DEFAULT_BASE_URL)
-      @api = Esignatur::Api.new(api_key: api_key, base_url: base_url)
+    def initialize(api_key:, base_url: DEFAULT_BASE_URL, creator_id:)
+      @api = Esignatur::Api.new(
+        api_key: api_key,
+        base_url: base_url,
+        creator_id: creator_id
+      )
+
       @attributes = {}
     end
 
-    def find_by(user_id:, creator_id:)
-      headers = { 'X-eSignatur-CreatorId': creator_id }
-      response = api_get("user/get/#{user_id}", headers: headers)
+    def find_by(user_id:)
+      response = api_get("user/get/#{user_id}")
       @attributes = response.json_body if errors.empty?
       self
     end

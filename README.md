@@ -26,7 +26,7 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-esignatur = Esignatur::Client.new(api_key: your_api_key)
+esignatur = Esignatur::Client.new(api_key: your_api_key, creator_id: your_creator_id)
 
 esignatur.orders.where(modified_since: Date.new(2000, 1, 1))
 
@@ -35,7 +35,7 @@ order = esignatur.orders.find(esignatur_order_id)
 order = esignatur.orders.build
 order.create(some_order_params) # creates order on esignatur side
 order.status # returns Status object
-order.cancel(creator_id: '123') # => true/false
+order.cancel
 
 pade_list = order.pades_list
 pade_list.first.document_data # decoded body of the document

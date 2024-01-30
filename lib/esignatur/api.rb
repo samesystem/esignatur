@@ -10,9 +10,12 @@ module Esignatur
 
     DEFAULT_BASE_URL = 'https://api.esignatur.dk'
 
-    def initialize(api_key:, base_url: DEFAULT_BASE_URL)
+    attr_reader :creator_id
+
+    def initialize(api_key:, creator_id:, base_url: DEFAULT_BASE_URL)
       @api_key = api_key.to_s
       @base_url = base_url
+      @creator_id = creator_id
     end
 
     def post(relative_url, data:, headers: {})
@@ -40,8 +43,9 @@ module Esignatur
       {
         'X-eSignatur-Id' => api_key,
         'Accept' => 'application/json',
-        'Content-Type' => 'application/json'
-      }
+        'Content-Type' => 'application/json',
+        'X-eSignatur-CreatorId' => creator_id&.to_s
+      }.compact
     end
   end
 end

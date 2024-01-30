@@ -6,7 +6,7 @@ module Esignatur
   RSpec.describe Status do
     subject(:status) { described_class.new(order: order, api: api) }
 
-    let(:api) { Esignatur::Api.new(api_key: '123') }
+    let(:api) { Esignatur::Api.new(api_key: '123', creator_id: 1) }
     let(:order) { Esignatur::Order.new(attributes: { id: 1 }, api: api) }
 
     describe '#fetch' do
