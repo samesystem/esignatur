@@ -20,7 +20,7 @@ module Esignatur
     end
 
     def post(relative_url, data:, headers: {}, timeout: nil)
-      make_request(:post, relative_url, data: data, extra_headers: headers)
+      make_request(:post, relative_url, data: data, extra_headers: headers, timeout: timeout)
     end
 
     def get(relative_url, headers: {}, timeout: nil)
