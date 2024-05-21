@@ -18,7 +18,7 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*.rb
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   AllowedNames:
     - 'to'
     - 'at'
