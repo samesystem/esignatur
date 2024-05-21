@@ -2,6 +2,7 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "esignatur/version"
+require "yaml"
 
 Gem::Specification.new do |spec|
   spec.name          = "esignatur"
@@ -39,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", ">= 1.16"
   spec.add_development_dependency "rake", ">= 10.0"
   spec.add_development_dependency "rspec", ">= 3.0"
-  spec.add_development_dependency "rubocop", '>= 0.57'
+  spec.add_development_dependency "rubocop", YAML.load_file('.hound.yml')['rubocop']['version']
   spec.add_development_dependency "rubocop-rspec", '>= 1.27'
   spec.add_development_dependency "webmock", '>= 3.4'
   spec.add_development_dependency "codecov", '>= 0.2.0'
