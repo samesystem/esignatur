@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    esignatur (2.0.0)
+    esignatur (2.1.0)
       activesupport (>= 4.0)
       faraday (>= 0.10)
       json (>= 2.6.2)
